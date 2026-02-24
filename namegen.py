@@ -24,6 +24,9 @@ from typing import Dict, Iterable, List, Optional, Set, Tuple
 START = "<START>"
 END = "<END>"
 START_STYLE_CORPUS = "scandi"
+PROJECT_ROOT = Path(__file__).resolve().parent
+DEFAULT_CORPUS = str(PROJECT_ROOT / "data" / "default_corpus.txt")
+DEFAULT_STYLES_DIR = str(PROJECT_ROOT / "data" / "styles")
 
 
 @dataclass(frozen=True)
@@ -153,6 +156,34 @@ DEFAULT_PROFILE = StyleProfile(
 
 
 BUILTIN_STYLE_CORPORA: Dict[str, List[str]] = {
+    "scandi": [
+        "stockholm",
+        "gothenburg",
+        "uppsala",
+        "berlin",
+        "lund",
+        "vikar",
+        "forsmark",
+        "havn",
+        "berg",
+        "stavik",
+        "norrland",
+        "gotland",
+        "kiruna",
+        "malmo",
+        "solna",
+        "bjorna",
+        "halmstad",
+        "oslo",
+        "bergen",
+        "aarhus",
+        "kristiansand",
+        "strand",
+        "fjord",
+        "nordby",
+        "kristi",
+        "alborg",
+    ],
     "italian": [
         "roma",
         "milano",
@@ -1063,8 +1094,8 @@ def run_self_test(args: argparse.Namespace) -> None:
 
 def parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Reusable style-aware name generator")
-    p.add_argument("--corpus", default="data/default_corpus.txt")
-    p.add_argument("--styles-dir", default="data/styles")
+    p.add_argument("--corpus", default=DEFAULT_CORPUS)
+    p.add_argument("--styles-dir", default=DEFAULT_STYLES_DIR)
     p.add_argument(
         "--style",
         default="scandi",
@@ -1087,8 +1118,8 @@ def parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
     return p.parse_args(argv)
 
 
-if __name__ == "__main__":
-    args = parse_args()
+def main(argv: Optional[List[str]] = None) -> None:
+    args = parse_args(argv)
     if args.seed is not None:
         random.seed(args.seed)
 
@@ -1096,3 +1127,7 @@ if __name__ == "__main__":
         run_self_test(args)
     else:
         run_generation(args)
+
+
+if __name__ == "__main__":
+    main()

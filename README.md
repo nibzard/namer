@@ -17,6 +17,20 @@ then generates pronounceable, novel names using:
 
 ## Quick Start
 
+Run directly via `uvx` (Astral `uv`):
+
+```bash
+uvx --with-editable . namegen --style scandi --n 10
+```
+
+From GitHub (once this repo has been pushed):
+
+```bash
+uvx --from git+https://github.com/nibzard/namer.git namegen --style roman --n 10
+```
+
+Equivalent direct execution (local checkout):
+
 ```bash
 python3 namegen.py --style scandi --n 10
 python3 namegen.py --style italian --n 10
@@ -62,6 +76,7 @@ Then run:
 
 ```bash
 python3 namegen.py --style <style> --styles-dir data/styles --n 8
+uvx --with-editable . namegen --style <style> --styles-dir data/styles --n 8
 ```
 
 If no file/known built-in style exists, generation fails with:
@@ -87,7 +102,7 @@ These are already present under `data/styles/`:
 ```bash
 --style <name>          style profile or custom theme
 --styles-dir <path>     directory with style files (default: data/styles)
---corpus <path>         main corpus (default: data/default_corpus.txt)
+--corpus <path>         main corpus (default: project's bundled data/default_corpus.txt)
 --n <int>               number of final names to emit (default: 20)
 --sample-pool <int>     internal candidate attempts (0 = style default)
 --beam <int>            beam width (0 = style default)
